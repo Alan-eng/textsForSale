@@ -1,13 +1,29 @@
 // import https from 'https';
 import http from 'http';
 import express from 'express';
+import apiRouter from './api';
+// import fs from 'fs';
 import config from './config';
 
 const server = express();
 
+// server.get('/', (req, res) => {
+//   fs.readFile('./about.html', (err, data) => {
+//     res.send(data.toString());
+//   });
+// });
+
+server.set('view engine', 'ejs');
+
 server.get('/', (req, res) => {
-  res.send('Hello Express!!!');
+  res.render('index', {
+    content: 'Hello express and <em>EJS</em>',
+  });
 });
+
+server.use('/api', apiRouter);
+server.use(express.static('public'));
+
 server.listen(config.port, () => {
   console.info('Express is listening on port ', config.port);
 });
