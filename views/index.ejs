@@ -1,8 +1,10 @@
-<%- include('header') %>
+<script type="text/javascript">
+window.initialData = JSON.stringify({'bla': '123'})
+</script>
 
+<%- include('header') %>
     <div id="root">
+        напишем что-нибудь для теста
         <%- content %>
-        <%= Math.random() %>
     </div>
-    
 <%- include('footer') %>

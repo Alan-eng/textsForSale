@@ -4,6 +4,7 @@ import express from 'express';
 import apiRouter from './api';
 // import fs from 'fs';
 import config from './config';
+import serverRender from './serverRender';
 
 const server = express();
 
@@ -16,15 +17,18 @@ const server = express();
 server.set('view engine', 'ejs');
 
 server.get('/', (req, res) => {
-  res.render('index', {
-    content: 'Hello express and <em>EJS</em>',
-  });
+  serverRender()
+    // .then((content) => console.log('serverRender выполнилась', content))
+    .then((content) => res.render('index', {
+      content,
+    }))
+    .catch(console.error);
 });
 
 server.use('/api', apiRouter);
 server.use(express.static('public'));
 
-server.listen(config.port, () => {
+server.listen(config.port, config.host, () => {
   console.info('Express is listening on port ', config.port);
 });
 

@@ -1,40 +1,20 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
+import React from 'react'
+import App from './components/App'
+import axios from 'axios';
 
-import testData from './testData'
+axios.get('/api/testdata')
+.then(resp => {
+  ReactDOM.render(
+    <App testData={resp.data.testData}/>,
+    document.getElementById('root'),
+  );
+    // this.setState({testData: resp.data.testData})
+})
 
-let color = Math.random() > 0.5 ? 'red' : 'green'
-console.log(testData)
 
-class App extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-  // componentDidMount(){
-  //   console.log('componentDidMount')
-  //   debugger
-  // }
-  // componentWillUnmount() {
-  //   console.log('componentWillUnmount')
-  //   debugger
-  // }
-  render () {
-    return (
-      <div>
-        <h2 style={{color: color}}>????????</h2>
-        <h2 style={{color: color}}>????????</h2>
-        {this.props.testData.map(obj => (
-          <h1 key={obj.name} >{obj.name}</h1>
-        ))}
-      </div>
-    )
-  }
-}
 
-ReactDOM.render(
-  <App testData={testData}/>,
-  document.getElementById('root'),
-);
+
 
 // setTimeout(()=>{
 //   ReactDOM.render(
